@@ -29,20 +29,23 @@ typedef struct tagScore
 
 	//복사 생성자를 사용하려면 기본 생성자가 꼭 정의돼야한다.
 }Score;
-
+// 의 형태            ← studentList
 map<string, list<Score>> studentList;
 
-list<Score> scoreList; 
+// list<Score> scoreList; <- 나의 답 
+
+Score CreateScore(string _name, int _kor, int _eng, int _math)
+{
+	return Score(_name, _kor, _eng, _math);
+}
 
 // bool로 쓴 이유를 생각하자.
-bool AddStudent(string _key, string _name,int _kor,int _eng,int _math )
+bool AddStudent(string _key, Score _score )
 {
 	map<string, list<Score>>::iterator iter = studentList.find(_key);
+	
 
-	if (_name == "")
-		return false;
-
-	Score score = Score(_name,10, 20, 30);
+	Score score = Score(_score,10, 20, 30);
 
 	if (iter == studentList.end())
 	{
@@ -115,16 +118,17 @@ int main(void)
 	string key = "홍";
 	string name = "길동";
 
-	
+	Score score = CreateScore(name, 10, 20, 30);
 
-	if (!AddStudent(key, name , 10, 20, 30))
+	if (!AddStudent(key, score))
 		cout << "Log" << endl;
 /*
 	else
 		cout << studentList[key].front().Name << endl;
 */
 
-
+	//나의 답
+	/*
 	for (map<string,list<Score>>::iterator iter = studentList.begin();
 		iter != studentList.end();++iter)
 	{
@@ -141,7 +145,21 @@ int main(void)
 		}
 		
 	}
+	*/
 
+	// 선생님 답
+	for (map<string, list<Score>>::iterator iter = studentList.begin();
+		iter != studentList.end(); ++iter)
+	{
+		for (list<Score>::iterator iter2 = iter->second.begin();
+			iter2 != iter->second.end(); ++iter2)
+		{
+			cout << iter2->Name << endl;
+			cout << iter2->Kor << endl;
+			cout << iter2->Eng << endl;
+			cout << iter2->Math << endl << endl;
+		}
+	}
 
 
 	return 0;
