@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "ObjectManager.h"
+#include "Prototype.h"
 
 Stage::Stage() : m_pPlayer(nullptr), EnemyList(nullptr), BulletList(nullptr)
 {
@@ -15,12 +16,31 @@ Stage::~Stage()
 
 void Stage::Start()
 {
-	m_pPlayer = (new Player)->Start();
 
-	ObjectManager::GetInstance()->AddObject(
-		(new Enemy)->Start());
+	GetSingle(Prototype)->Start();
 
-	EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
+	{
+		//** 유니티로 따지면 프리팹을 들고온 것임
+		GameObject* protoObj = GetSingle(Prototype)->GetGameObject("Player");
+		
+		//** 스크립트 상에서 예외처리 필요
+		if (protoObj != nullptr)
+		{
+			m_pPlayer = protoObj->Clone();
+			m_pPlayer->Start();
+		}
+	}
+
+	{
+		GameObject* protoObj = GetSingle(Prototype)->GetGameObject("Enemy");
+		
+		if (protoObj != nullptr)
+		{
+			GameObject* Object = protoObj->Clone();
+			ObjectManager::GetInstance()->AddObject(Object->Start());
+		}
+	}
+		EnemyList = ObjectManager::GetInstance()->GetObjectList("Enemy");
 }
 
 int Stage::Update()
