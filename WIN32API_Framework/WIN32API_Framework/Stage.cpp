@@ -23,6 +23,7 @@ void Stage::Start()
 		//** 유니티로 따지면 프리팹을 들고온 것임
 		GameObject* protoObj = GetSingle(Prototype)->GetGameObject("Player");
 		
+
 		//** 스크립트 상에서 예외처리 필요
 		if (protoObj != nullptr)
 		{
@@ -45,6 +46,8 @@ void Stage::Start()
 
 int Stage::Update()
 {
+
+
 	if (m_pPlayer)
 		m_pPlayer->Update();
 

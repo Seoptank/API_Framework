@@ -1,5 +1,7 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
+#include "CollisionManager.h"
+#include "ObjectPool.h"
 
 ObjectManager* ObjectManager::Instance = nullptr;
 
@@ -50,4 +52,33 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 	else
 		// ** second = value = list<GameObject*> ¸¦ ¹ÝÈ¯.
 		return &iter->second;
+}
+
+
+void ObjectManager::Update()
+{
+	list<GameObject*>* enemyList = &ObjectList.find("Enemy")->second;
+	list<GameObject*>* bulletList = &ObjectList.find("Bullet")->second;
+
+	list<GameObject*>::iterator iter1 = enemyList->begin();
+	list<GameObject*>::iterator iter2 = bulletList->begin();
+
+
+
+	for (; iter1 != enemyList->end(); ++iter1)
+	{
+		for (; iter2 != bulletList->end(); ++iter2)
+		{
+			if (GetSingle(CollisionManager)->CircleCollision(*iter2, *iter1))
+			{
+				(*iter1)->Destroy();
+				(*iter2)->Destroy();
+			}
+			
+			
+
+		}
+	}
+
+
 }

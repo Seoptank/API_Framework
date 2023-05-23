@@ -20,6 +20,9 @@ public:
 	void AddObject(GameObject* _Object);
 
 	list<GameObject*>* GetObjectList(const string& key);
+public:
+	void Update();
+
 private:
 	ObjectManager();
 public:

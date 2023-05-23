@@ -1,4 +1,7 @@
 #include "Bullet.h"
+#include "Enemy.h"
+#include "CollisionManager.h"
+#include "ObjectPool.h"
 
 Bullet::Bullet()
 {
@@ -29,7 +32,11 @@ int Bullet::Update()
 	if (transform.position.x > WIDTH)
 		return 1;
 
+
 	return 0;
+
+	
+
 }
 
 void Bullet::Render(HDC hdc)
@@ -43,4 +50,8 @@ void Bullet::Render(HDC hdc)
 
 void Bullet::Destroy()
 {
+	GetSingle(ObjectPool)->ReturnObject(this);
 }
+
+
+
