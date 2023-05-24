@@ -1,6 +1,7 @@
 #pragma once
 #include "Include.h"
 
+class Bridge;
 class GameObject
 {
 protected:
@@ -8,6 +9,8 @@ protected:
 	float Speed;
 
 	string Key;
+
+	Bridge* bulletBridge;
 public:
 	virtual GameObject* Start()PURE;
 	virtual int Update()PURE;
@@ -31,6 +34,8 @@ public:
 
 	Vector3 GetScale()const { return transform.scale; }
 	void SetScale(const Vector3& _scale) { transform.scale = _scale; }
+
+	void SetBridge(Bridge* _bridge) { bulletBridge = _bridge; }
 public:
 	GameObject();
 	GameObject(Transform _transform) :transform(_transform), Speed(0.0f) {};

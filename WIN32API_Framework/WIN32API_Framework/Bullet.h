@@ -1,8 +1,10 @@
 #pragma once
 #include "GameObject.h"
 
+class Bridge;
 class Bullet : public GameObject
 {
+
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;

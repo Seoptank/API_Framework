@@ -18,6 +18,7 @@ public:
 		// ↑처럼 하면 나 자신을 복사하는 복사 생성자가 만들어짐
 	}
 public:
+	template<typename T>
 	GameObject* CreateBullet();
 public:
 	Player();

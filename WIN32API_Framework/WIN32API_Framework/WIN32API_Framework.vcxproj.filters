@@ -73,6 +73,18 @@
     <Filter Include="소스 파일\99. Manager\Factory">
       <UniqueIdentifier>{a0c5f353-0612-4c25-a9e8-441adbb286c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Pattern\Bridge">
+      <UniqueIdentifier>{a730d2ba-b016-4891-83d2-14924ab4d64c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge">
+      <UniqueIdentifier>{e3f263eb-d437-4dfe-a53f-a0e6dfa79c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge">
+      <UniqueIdentifier>{ba7fe249-597d-425d-b85b-21879259c85b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet">
+      <UniqueIdentifier>{34aa966f-0c65-466a-81c8-eab249f5d2b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +159,18 @@
     <ClInclude Include="ObjectFactory.h">
       <Filter>소스 파일\99. Manager\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="Bridge.h">
+      <Filter>소스 파일\Pattern\Bridge</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBridge.h">
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalBullet.h">
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge</Filter>
+    </ClInclude>
+    <ClInclude Include="GuideBullet.h">
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WIN32API_Framework.cpp">
@@ -196,6 +220,12 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>소스 파일\99. Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalBullet.cpp">
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge</Filter>
+    </ClCompile>
+    <ClCompile Include="GuideBullet.cpp">
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

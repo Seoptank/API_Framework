@@ -4,6 +4,9 @@
 #include "InputManager.h"
 #include "Prototype.h"
 
+#include "NormalBullet.h"
+#include "GuideBullet.h"
+
 
 Player::Player()
 {
@@ -46,7 +49,10 @@ int Player::Update()
 		transform.position.x += Speed;
 
 	if (dwKey & KEYID_SPACE)
-		ObjectManager::GetInstance()->AddObject( CreateBullet() );
+		ObjectManager::GetInstance()->AddObject( CreateBullet<NormalBullet>() );
+
+	if (dwKey & KEYID_CONTROL)
+		ObjectManager::GetInstance()->AddObject(CreateBullet<GuideBullet>());
 
 	return 0;
 }
@@ -64,22 +70,34 @@ void Player::Destroy()
 {
 
 }
-
+template<typename T>
 GameObject* Player::CreateBullet()
 {
-	//** ProtoType CreateBullet 함수 구성
-	GameObject*protoObj = GetSingle(Prototype)->GetGameObject("Bullet");
+	Bridge* pBridge = new T;
+	pBridge->Start();
 
+	((BulletBridge*)pBridge)->SetTarget(this);
 
+	GameObject* protoObj = GetSingle(Prototype)->GetGameObject("Bullet");
+	
 	if (protoObj != nullptr)
 	{
 		GameObject* Object = protoObj->Clone();
 		Object->Start();
 		Object->SetPosition(transform.position);
+		Object->SetBridge(pBridge);
+		Object->SetObject(Object);
 		return Object;
 	}
 	else
 		return nullptr;
+	/*
+	//** ProtoType CreateBullet 함수 구성
+	GameObject*protoObj = GetSingle(Prototype)->GetGameObject("Bullet");
+
+
+	
+	
 
 	//** 이전 CreateBullet 함수 구성
 	/*

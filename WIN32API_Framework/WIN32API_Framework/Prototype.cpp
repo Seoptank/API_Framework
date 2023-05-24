@@ -38,8 +38,6 @@ void Prototype::Start()
 	PrototypeObject.insert(make_pair(key, (new Bullet(transform))->Start()->SetKey(key)));
 	// SetKey 사용해서 key 바꾸게 되면 위험한 상황이 발생할 수 있기때문에
 	// 나중에 바꾸자
-	
-
 }
 
 GameObject* Prototype::GetGameObject(string _key)
