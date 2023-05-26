@@ -2,21 +2,20 @@
 #include "Include.h"
 
 class GameObject;
-class Prototype
+class Protptype
 {
 public:
-	Single(Prototype);
+	Single(Protptype);
 private:
-	//원본만 필요하기 때문에 list를 사용하지 않음
-	map<string, GameObject*> PrototypeObject;
+	map<string, GameObject*> ProtptypeObject;
 public:
 	void Start();
 
 	GameObject* GetGameObject(string _key);
 
 private:
-	Prototype();
+	Protptype();
 public:
-	~Prototype();
+	~Protptype();
 };
 

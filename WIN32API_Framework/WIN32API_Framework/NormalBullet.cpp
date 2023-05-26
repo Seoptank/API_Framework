@@ -1,15 +1,14 @@
 #include "NormalBullet.h"
 #include "Bullet.h"
 
-NormalBullet::NormalBullet() 
+NormalBullet::NormalBullet()
 {
-
 }
 
 NormalBullet::~NormalBullet()
 {
-
 }
+
 
 void NormalBullet::Start()
 {
@@ -19,7 +18,6 @@ void NormalBullet::Start()
 void NormalBullet::Update(Transform& transform)
 {
 	transform.position += transform.direction * Speed;
-
 }
 
 void NormalBullet::Render(HDC hdc)

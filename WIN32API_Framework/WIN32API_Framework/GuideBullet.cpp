@@ -9,6 +9,7 @@ GuideBullet::~GuideBullet()
 {
 }
 
+
 void GuideBullet::Start()
 {
 	Speed = 2.5f;
@@ -16,16 +17,22 @@ void GuideBullet::Start()
 
 void GuideBullet::Update(Transform& transform)
 {
-	float Horiaontal = Target->GetPosition().x - transform.position.x;
+	float Horizontal = Target->GetPosition().x - transform.position.x;
 	float Vertical = Target->GetPosition().y - transform.position.y;
 
-	float Distance = sqrt((Horiaontal * Horiaontal) + (Vertical * Vertical));
+	float Distance = (float)sqrt((Horizontal * Horizontal) + (Vertical * Vertical));
 
-	Vector3 Distance = Vector3(
-		Horiaontal / Distance,
-		Vertical / Distance,
-		0.0f
-	);
+	Vector3 Direction;
+
+	if (Distance != 0)
+		Direction = Vector3(
+			Horizontal / Distance,
+			Vertical / Distance,
+			0.0f);
+	else
+		Direction = Vector3(0.0f, 0.0f, 0.0f);
+
+	transform.position += Direction * Speed;
 }
 
 void GuideBullet::Render(HDC hdc)
@@ -39,5 +46,5 @@ void GuideBullet::Render(HDC hdc)
 
 void GuideBullet::Destroy()
 {
-}
 
+}

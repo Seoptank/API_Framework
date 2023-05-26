@@ -1,7 +1,6 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
-#include "CollisionManager.h"
-#include "ObjectPool.h"
+//#include "ObjectPool.h"
 
 ObjectManager* ObjectManager::Instance = nullptr;
 
@@ -54,34 +53,26 @@ list<GameObject*>* ObjectManager::GetObjectList(const string& key)
 		return &iter->second;
 }
 
-
-
 void ObjectManager::Update()
 {
-	list<GameObject*>* enemyList = &ObjectList.find("Enemy")->second;
-	list<GameObject*>* bulletList = &ObjectList.find("Bullet")->second;
-
-	list<GameObject*>::iterator iter1 = enemyList->begin();
-	list<GameObject*>::iterator iter2 = bulletList->begin();
-
-
-
-	for (; iter1 != enemyList->end(); ++iter1)
+	for (map<string, list<GameObject*>>::iterator iter = ObjectList.begin();
+		iter != ObjectList.end(); ++iter)
 	{
-		for (; iter2 != bulletList->end(); ++iter2)
+		for (list<GameObject*>::iterator iter2 = iter->second.begin();
+			iter2 != iter->second.end(); )
 		{
-			if (GetSingle(CollisionManager)->CircleCollision(*iter2, *iter1))
-			{
-				(*iter1)->Destroy();
-				(*iter2)->Destroy();
-			}
-			
-			
+			int result = (*iter2)->Update();
 
+			if (result == 1)
+			{
+				//GetSingle(ObjectPool)->ReturnObject((*iter2));
+				(*iter2)->Destroy();
+				iter2 = iter->second.erase(iter2);
+			}
+			else
+				++iter2;
 		}
 	}
-
-
 }
 
 void ObjectManager::Render(HDC _hdc)
@@ -94,6 +85,5 @@ void ObjectManager::Render(HDC _hdc)
 		{
 			(*iter2)->Render(_hdc);
 		}
-
 	}
 }

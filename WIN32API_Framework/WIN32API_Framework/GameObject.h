@@ -1,16 +1,21 @@
 #pragma once
 #include "Include.h"
 
+class Bitmap;
 class Bridge;
 class GameObject
 {
 protected:
 	Transform transform;
 	float Speed;
-
 	string Key;
 
-	Bridge* bulletBridge;
+	Bridge* pBridge;
+
+	static map<string, Bitmap*>* m_ImageList; // <- 원본은 ImageManager에 있음
+											  // 상속받으면 다 쓸 수 있음!!
+public:
+	static void SetImageList(map<string, Bitmap*>* _ImageList) { m_ImageList = _ImageList; }
 public:
 	virtual GameObject* Start()PURE;
 	virtual int Update()PURE;
@@ -18,14 +23,9 @@ public:
 	virtual void Destroy()PURE;
 public:
 	virtual GameObject* Clone()PURE;
-	//overrride: 부모 함수를 재정의
 public:
 	string GetKey()const { return Key; }
-	GameObject* SetKey(const string& _key)
-	{
-		Key = _key;
-		return  this;
-	}
+	GameObject* SetKey(const string& _key) {  Key = _key; return this; }
 
 	Transform GetTransform()const { return transform; }
 
@@ -35,9 +35,9 @@ public:
 	Vector3 GetScale()const { return transform.scale; }
 	void SetScale(const Vector3& _scale) { transform.scale = _scale; }
 
-	void SetBridge(Bridge* _bridge) { bulletBridge = _bridge; }
+	void SetBridge(Bridge* _bridge) { pBridge = _bridge; }
 public:
 	GameObject();
-	GameObject(Transform _transform) :transform(_transform), Speed(0.0f) {};
+	GameObject(Transform _transform) : transform(_transform), Speed(0.0f), pBridge(nullptr){}
 	virtual ~GameObject();
 };

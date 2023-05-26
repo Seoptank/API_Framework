@@ -1,6 +1,9 @@
 #include "GameObject.h"
 
-GameObject::GameObject() : Speed(0.0f)
+map<string, Bitmap*>* GameObject::m_ImageList = nullptr;
+
+
+GameObject::GameObject() : Speed(0.0f), pBridge(nullptr)
 {
 	
 }

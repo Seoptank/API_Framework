@@ -16,7 +16,7 @@ MainUpdate::~MainUpdate()
 
 void MainUpdate::Start()
 {
-	m_hdc = GetDC(g_hWnd);
+	m_hdc = GetDC(g_hWnd); // m_이 붙어 있으면 namespace를 먼저 본다. namespace꺼임
 
 	SceneManager::GetInstance()->SetScene(LOGO);
 }
@@ -31,8 +31,7 @@ void MainUpdate::Update()
 
 void MainUpdate::Render()
 {
-	Rectangle(m_hdc, 0, 0, WIDTH, HEIGHT);
-	SceneManager::GetInstance()->Render(m_hdc);
+	SceneManager::GetInstance()->Render(m_hdc);//<-DC를 받아온다.
 }
 
 void MainUpdate::Destroy()

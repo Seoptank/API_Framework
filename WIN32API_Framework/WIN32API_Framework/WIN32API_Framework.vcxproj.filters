@@ -61,29 +61,32 @@
     <Filter Include="소스 파일\99. Manager\InputManager">
       <UniqueIdentifier>{cfb9b6b7-1317-4f7f-ae6e-677338ce29c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Pattern">
-      <UniqueIdentifier>{5cd9eac9-0e5e-451e-8304-fb140273445d}</UniqueIdentifier>
+    <Filter Include="소스 파일\98. Pattern">
+      <UniqueIdentifier>{7191656f-6932-4e84-bb8e-1bd811b0f9f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Pattern\Prototype">
-      <UniqueIdentifier>{3fe943f2-742b-4aa2-8679-f3ad977ffeae}</UniqueIdentifier>
+    <Filter Include="소스 파일\98. Pattern\ObjectPool">
+      <UniqueIdentifier>{10d14985-a025-4d89-b07d-79a4758dbc4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Pattern\ObjectPool">
-      <UniqueIdentifier>{c301b450-618d-440e-a738-fff7a0beedb8}</UniqueIdentifier>
+    <Filter Include="소스 파일\98. Pattern\Protptype">
+      <UniqueIdentifier>{0d83437a-e51c-4458-a09c-1b5dcf8e3590}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\99. Manager\Factory">
-      <UniqueIdentifier>{a0c5f353-0612-4c25-a9e8-441adbb286c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Pattern\Bridge">
-      <UniqueIdentifier>{a730d2ba-b016-4891-83d2-14924ab4d64c}</UniqueIdentifier>
+    <Filter Include="소스 파일\98. Pattern\Bridge">
+      <UniqueIdentifier>{b9b7e958-b877-409c-a781-809c85310504}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge">
-      <UniqueIdentifier>{e3f263eb-d437-4dfe-a53f-a0e6dfa79c39}</UniqueIdentifier>
+      <UniqueIdentifier>{ad0eb630-276c-41e7-8973-c05aed1aaf00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge">
-      <UniqueIdentifier>{ba7fe249-597d-425d-b85b-21879259c85b}</UniqueIdentifier>
+    <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge\NormalBullet">
+      <UniqueIdentifier>{220cf622-ec22-45c6-9fdb-e83af509129b}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet">
-      <UniqueIdentifier>{34aa966f-0c65-466a-81c8-eab249f5d2b2}</UniqueIdentifier>
+      <UniqueIdentifier>{2e0ec922-594e-4fcd-af41-138708690cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Manager\Bitmap">
+      <UniqueIdentifier>{c1af8fe1-5d49-48f7-9062-d0e737f50f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99. Manager\Bitmap\ImageManager">
+      <UniqueIdentifier>{cad2f93a-f16d-4e7e-a755-8b67f5e3d71d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,26 +153,29 @@
     <ClInclude Include="InputManager.h">
       <Filter>소스 파일\99. Manager\InputManager</Filter>
     </ClInclude>
-    <ClInclude Include="Prototype.h">
-      <Filter>소스 파일\Pattern\Prototype</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectPool.h">
-      <Filter>소스 파일\Pattern\ObjectPool</Filter>
+      <Filter>소스 파일\98. Pattern\ObjectPool</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFactory.h">
-      <Filter>소스 파일\99. Manager\Factory</Filter>
+    <ClInclude Include="Protptype.h">
+      <Filter>소스 파일\98. Pattern\Protptype</Filter>
     </ClInclude>
     <ClInclude Include="Bridge.h">
-      <Filter>소스 파일\Pattern\Bridge</Filter>
+      <Filter>소스 파일\98. Pattern\Bridge</Filter>
     </ClInclude>
     <ClInclude Include="BulletBridge.h">
       <Filter>소스 파일\01. GameObject\Bullet\BulletBridge</Filter>
     </ClInclude>
     <ClInclude Include="NormalBullet.h">
-      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge</Filter>
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBullet</Filter>
     </ClInclude>
     <ClInclude Include="GuideBullet.h">
       <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>소스 파일\99. Manager\Bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>소스 파일\99. Manager\Bitmap\ImageManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -212,20 +218,23 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>소스 파일\99. Manager\InputManager</Filter>
     </ClCompile>
-    <ClCompile Include="Prototype.cpp">
-      <Filter>소스 파일\Pattern\Prototype</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
-      <Filter>소스 파일\Pattern\ObjectPool</Filter>
+      <Filter>소스 파일\98. Pattern\ObjectPool</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>소스 파일\99. Manager\CollisionManager</Filter>
+    <ClCompile Include="Protptype.cpp">
+      <Filter>소스 파일\98. Pattern\Protptype</Filter>
     </ClCompile>
     <ClCompile Include="NormalBullet.cpp">
-      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBridge</Filter>
+      <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\NormalBullet</Filter>
     </ClCompile>
     <ClCompile Include="GuideBullet.cpp">
       <Filter>소스 파일\01. GameObject\Bullet\BulletBridge\GuideBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>소스 파일\99. Manager\Bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>소스 파일\99. Manager\Bitmap\ImageManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,22 +9,13 @@ public:
 	virtual void Render(HDC hdc)override;
 	virtual void Destroy()override;
 public:
-	//** 인라인 함수
-	virtual GameObject* Clone()override
-	{
-		return new Player(*this);
-		// 기본 복사 생성자 중
-		// 나 자신을 복사하는 복사 생성자가 있다.
-		// ↑처럼 하면 나 자신을 복사하는 복사 생성자가 만들어짐
-	}
+	virtual GameObject* Clone()override { return new Player(*this); }
 public:
-	template<typename T>
-	GameObject* CreateBullet();
+	template <typename T>
+	GameObject* CreateBullet(string _Key);
 public:
 	Player();
-	//생성자의 초기화에서는 class내부에 있는 요소들로만 초기화 가능
-	// 복사 생성자를 들고와 조기화
-	Player(Transform _transform) : GameObject(_transform) {};
+	Player(Transform _transform) : GameObject(_transform) {}
 	virtual ~Player();
 };
 
