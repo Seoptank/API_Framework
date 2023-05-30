@@ -62,4 +62,15 @@ typedef struct tagTransform
 	Vector3 position;
 	Vector3 direction;
 	Vector3 scale;
+
 }Transform;
+
+typedef struct tagFrame
+{
+	float frameTime;
+	int cntX; // count
+	int cntY; // count
+	int endFrame;
+
+}Frame;
+

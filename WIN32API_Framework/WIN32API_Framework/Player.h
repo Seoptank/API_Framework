@@ -3,6 +3,9 @@
 
 class Player : public GameObject
 {
+
+private:
+	int dirX;
 public:
 	virtual GameObject* Start()override;
 	virtual int Update()override;
@@ -13,6 +16,8 @@ public:
 public:
 	template <typename T>
 	GameObject* CreateBullet(string _Key);
+
+	void ChangeAnimation(int _cntY,int _end);
 public:
 	Player();
 	Player(Transform _transform) : GameObject(_transform) {}

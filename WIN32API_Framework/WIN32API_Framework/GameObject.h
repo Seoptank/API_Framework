@@ -6,11 +6,15 @@ class Bridge;
 class GameObject
 {
 protected:
+	Frame frame;
+	ULONGLONG Time;
+
 	Transform transform;
 	float Speed;
 	string Key;
 
 	Bridge* pBridge;
+	
 
 	static map<string, Bitmap*>* m_ImageList; // <- 원본은 ImageManager에 있음
 											  // 상속받으면 다 쓸 수 있음!!
