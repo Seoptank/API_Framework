@@ -10,7 +10,6 @@
 #include "Bitmap.h"
 
 
-
 Player::Player()
 {
 
@@ -23,110 +22,120 @@ Player::~Player()
 
 GameObject* Player::Start()
 {
+	Attack = false;
+	isJumping = false;
+	jumpHeight = 10.0f;
+	oldY = 0.0f;
+	curentY = 0.0f;
+
 	frame.cntX = 0;
 	frame.cntY = 0;
 	frame.endFrame = 7;
-	frame.frameTime = 150; // 0.05초
-
+	frame.frameTime = 150;
 
 	transform.position = Vector3(WIDTH * 0.5f, HEIGHT * 0.5f, 0.0f);
 	transform.direction = Vector3(0.0f, 0.0f, 0.0f);
-	transform.scale = Vector3(679/7, 639/9, 0.0f);
+	transform.scale = Vector3(679 / 7, 639 / 9, 0.0f);
 
 	Speed = 5.0f;
 
-	Key = "Player";
-
-	
+	Key = "PlayerR";
 
 	Time = GetTickCount64();
-
 	return this;
-}
-
-void Player::ChangeAnimation(int _cntY, int _end)
-{
-
-	if (dirX >= 0)
-	{
-		Key = "Player";
-	}
-	else
-	{
-		Key = "PlayerFlipX";
-	}
-
-	frame.cntY = _cntY;
-	frame.endFrame = _end;
-
-
-	if (Time + frame.frameTime < GetTickCount64())
-	{
-		Time = GetTickCount64();
-
-
-		while (frame.cntX < _end)
-		{
-			++frame.cntX;
-		}
-
-		if (frame.cntX == frame.endFrame)
-		{
-			frame.cntX = 0;
-			frame.cntY = _cntY;
-		}
-
-	}
-	
 }
 
 int Player::Update()
 {
-	ChangeAnimation(0, 7);
+	if (Time + frame.frameTime < GetTickCount64())
+	{
+		Time = GetTickCount64();
+		++frame.cntX;
+
+		if (frame.cntX == frame.endFrame)
+		{
+			frame.cntX = 0;
+
+			if (Attack)
+			{
+				Attack = false;
+				SetFrame(0, 0, 7, 150);
+			}
+		}
+	}
+
+	if (isJumping)
+	{
+		//** 누르는 힘을 적용
+		flightTime += 0.1f;
+
+		float result = (flightTime * flightTime * 0.98f);
+
+		//** 실제 점프 
+		transform.position.y += -sinf(90 * PI / 180) * jumpHeight +result;
+		// 180/PI ->라디안을 각도로
+		// PI/180 ->각도를 라디안으로
+		
+
+		//** 점프일 때 올라가는 중인지 떨어지는 중인지를 확인 
+		if (curentY < transform.position.y)
+			SetFrame(frame.cntX, 3, 3, 50);
+		else
+			SetFrame(frame.cntX, 2, 3, 50);
+
+		curentY = transform.position.y;
+
+		//** 최초의 점프 위치를 벗어나면 최초 위치로 셋팅
+		if (oldY < transform.position.y)
+		{
+			flightTime = 0.0f;
+			transform.position.y = oldY;
+			isJumping = false;
+		}
+	}
 
 	DWORD dwKey = GetSingle(InputManager)->GetKey();
 
-	if (dwKey & KEYID_UP)
-	{
-		transform.position.y -= Speed;
-		ChangeAnimation(1, 7);
-	}
-
-
-	if (dwKey & KEYID_DOWN)
-	{
-		transform.position.y += Speed;
-		ChangeAnimation(1, 7);
-	}
-
-	if (dwKey & KEYID_LEFT)
-	{
-		transform.position.x -= Speed;
-		dirX = -1;
-		ChangeAnimation(1, 7);
-
-	}
-
-	if (dwKey & KEYID_RIGHT)
-	{
-		transform.position.x += Speed;
-		dirX = 0;
-		ChangeAnimation(1, 7);
-
-	}
-
 	if (dwKey & KEYID_SPACE)
 	{
-		ObjectManager::GetInstance()->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
-		ChangeAnimation(5,3);
+		SetFrame(frame.cntX, 0, 7, 1500 / 7);
+		OnAttack();
 	}
 
 	if (dwKey & KEYID_CONTROL)
+		OnJump();
+
+	if (!Attack)
 	{
-		ObjectManager::GetInstance()->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
-		ChangeAnimation(5, 4);
+		if (dwKey & KEYID_UP)
+			transform.position.y -= Speed;
+
+		if (dwKey & KEYID_DOWN)
+			transform.position.y += Speed;
+
+
+		if (GetAsyncKeyState('1'))
+			Option = 0;
+
+		if (GetAsyncKeyState('2'))
+			Option = 1;
+
+
+		if (dwKey & KEYID_LEFT)
+			transform.direction.x = (-1.0f);
+		else if (dwKey & KEYID_RIGHT)
+			transform.direction.x = 1.0f;
+		else
+			transform.direction.x = 0.0f;
 	}
-	
+
+	if (transform.direction.x)
+	{
+		SetFrame(frame.cntX, 2, 7, 500 / 7);
+		OnMove();
+	}
+	else if (!isJumping)
+		SetFrame(frame.cntX, 0, 7, 1500 / 7);
 
 	return 0;
 }
@@ -134,18 +143,16 @@ int Player::Update()
 void Player::Render(HDC hdc)
 {
 	TransparentBlt(hdc,	  // 복사해 넣을 그림판 ?!
-		(int)transform.position.x,	// 복사할 영역 시작점 X
-		(int)transform.position.y, 	// 복사할 영역 시작점 Y
-		(int)transform.scale.x,	// 복사할 영역 끝부분 X
+		int(transform.position.x - transform.scale.x * 0.5f),	// 복사할 영역 시작점 X
+		int(transform.position.y - transform.scale.y * 0.5f), 	// 복사할 영역 시작점 Y
+		(int)transform.scale.x,		// 복사할 영역 끝부분 X
 		(int)transform.scale.y, 	// 복사할 영역 끝부분 Y
 		(*m_ImageList)[Key]->GetMemDC(),	// 복사할 이미지 (복사대상)
-		transform.scale.x *  frame.cntX,  // 복사할 시작점 X
-		transform.scale.y *  frame.cntY,  // 복사할 시작점 Y
+		transform.scale.x * frame.cntX,  // 복사할 시작점 X
+		transform.scale.y * frame.cntY,	// 복사할 시작점 Y
 		(int)transform.scale.x, 			// 출력할 이미지의 크기 만큼 X
 		(int)transform.scale.y,			// 출력할 이미지의 크기 만큼 Y
 		RGB(255, 0, 255));		// 해당 색상을 제외
-
-	
 }
 
 void Player::Destroy()
@@ -189,3 +196,51 @@ GameObject* Player::CreateBullet(string _Key)
 
 	return Obj;
 }
+
+void Player::SetFrame(int _frame, int _locomotion, int _endFrame, float _frameTime)
+{
+	frame.cntX = _frame;
+	frame.cntY = _locomotion;
+	frame.endFrame = _endFrame;
+	frame.frameTime = _frameTime / _endFrame; 
+}
+
+void Player::OnAttack()
+{
+	if (Attack)
+		return;
+
+	Attack = true;
+	SetFrame(0, 5, 4, 1500 / 4);
+
+	switch (Option)
+	{
+	case 0:
+		ObjectManager::GetInstance()->AddObject(CreateBullet<NormalBullet>("NormalBullet"));
+		break;
+
+	case 1:
+		ObjectManager::GetInstance()->AddObject(CreateBullet<GuideBullet>("GuideBullet"));
+		break;
+
+	}
+}
+
+void Player::OnMove()
+{
+	transform.position += transform.direction * Speed;
+	Key = transform.direction.x < 0 ? "PlayerL" : "PlayerR";
+}
+
+
+
+void Player::OnJump()
+{
+	if (isJumping)
+		return;
+
+	isJumping = true;
+	oldY = transform.position.y;
+	frame.cntX = 0;
+}
+

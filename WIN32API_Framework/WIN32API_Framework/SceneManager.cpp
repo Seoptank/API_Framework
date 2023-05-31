@@ -17,6 +17,9 @@ SceneManager::~SceneManager()
 void SceneManager::SetScene(SCENEID _State)
 {
 	if (SceneState != nullptr)
+		::Safe_Release(SceneState); // 인라인 함수 앞에는 ::
+
+	if(SceneState)
 	{
 		delete SceneState;
 		SceneState = nullptr;
